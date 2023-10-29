@@ -49,7 +49,7 @@
 - `DELETE /api/v1/products/:id` - Delete a product by ID.
 - `GET /api/v1/products/:id/reviews` - Get a single product review.
 
-#### Cart
+#### Cart - *Required user login
 
 
 #### Order
