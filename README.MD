@@ -1,32 +1,37 @@
-# eCommerce REST API - MY FINAL PROJECT FOR CT484
-# Author: Ly Dai Phat - B1705292
+# eCommerce REST API
+
+**Final Project for CT449**
+Author: Ly Dai Phat - B1705292
 
 ## Features
 
-- User registration
-- User login and logout
-- Product creation, update, deletion, and retrieval
-- Review creation, update, deletion, and retrieval
-- Order creation, update, deletion, and retrieval
-- Image upload for products
-- JWT-based authentication
+- User registration.
+- User login and logout.
+- `JWT-based authentication`.
+- Product creation, update, deletion, and retrieval.
+- Review creation, update, deletion, and retrieval.
+- Cart creation, update, deletion, and retrieval. 
+- Order creation, update, deletion, and retrieval.
+- Image upload for products using `Cloud service`.
 
 ## Tech Stack
+
 **Backend:**
 - Node.js
 - Express.js
 - MongoDB
 - Mongoose
-- JWT
+- JSON Web Tokens (JWT)
 
 **Image Upload:** 
-- Cloudinary API
+- Cloudinary for uploading images
 
 **Data Storage:** 
-- MongoDB
+- MongoDB for data storage
 
 **User Authentication:**
 - JSON Web Tokens (JWT)
+
 ## API Reference
 
 #### User Authentication
@@ -37,11 +42,11 @@
 #### User
 - `GET /api/v1/users` - Get all users.
 - `GET /api/v1/users/:id` - Get single user.
-- `GET /api/v1/users/showMe` -  Show current user.
+- `GET /api/v1/users/showMe` -  Show information about the current user.
 - `PATCH /api/v1/users/updateUser` -  Update user profile.
-- `PATCH /api/v1/users/updateUserPassword` -  Update User Password.
+- `PATCH /api/v1/users/updateUserPassword` -  Update user password.
 
-#### Products
+#### Products (Including image upload to Cloudinary)
 - `GET /api/v1/products` - Get all products.
 - `POST /api/v1/products` - Create a new product.
 - `GET /api/v1/products/:id` - Get a single product by ID.
@@ -49,15 +54,18 @@
 - `DELETE /api/v1/products/:id` - Delete a product by ID.
 - `GET /api/v1/products/:id/reviews` - Get a single product review.
 
-#### Cart - *Required user login
-
+#### Cart (*Logign required)
+- `GET /api/v1/carts` - Get the user's cart.
+- `POST /api/v1/carts` - Add product to the user's cart.
+- `DELETE /api/v1/carts` -  Remove a product from user's cart (requires the product ID in the request body).
+- `DELETE /api/v1/carts/clear` -  Clear the user's cart.
 
 #### Order
 - `GET /api/v1/orders` - Get all orders.
 - `POST /api/v1/orders` - Create a order.
 - `GET /api/v1/orders/:id` - Get a single order.
 - `PATCH /api/v1/orders/:id` - Update a order.
-- `GET /api/v1/orders/showAllMyOrders` - Get a current user orders.
+- `GET /api/v1/orders/showAllMyOrders` - Get all orders for the current user.
 
 #### Product Reviews
 - `GET /api/v1/reviews` - Get all reviews for a product.
