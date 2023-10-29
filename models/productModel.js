@@ -12,6 +12,7 @@ const ProductSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Please provide price value"],
       default: 0,
+      min: [0, "Price cannot be less than 0.0"],
     },
     description: {
       type: String,
@@ -21,6 +22,11 @@ const ProductSchema = new mongoose.Schema(
     image: {
       type: String,
       default: "",
+    },
+    quantityInStock: {
+      type: Number,
+      default: 0,
+      min: [0, "Quantity cannot be less than 0"],
     },
     category: {
       type: String,
@@ -58,8 +64,19 @@ ProductSchema.virtual("reviews", {
 })
 
 ProductSchema.pre("remove", async function (next) {
-  // Go to 'Reveiw; and delete all the review that are associated with this particular product
+  // Go to 'Review' and delete all the review that are associated with this particular product
   await this.model("Review").deleteMany({ product: this._id })
+})
+
+ProductSchema.pre("remove", async function (next) {
+  const ShoppingCart = this.model("ShoppingCart");
+
+  // Delete all cart items that reference this product
+  await ShoppingCart.updateMany({}, {
+    $pull: { items: { product: this._id } },
+  });
+
+  next();
 })
 
 module.exports = new mongoose.model("Product", ProductSchema)
