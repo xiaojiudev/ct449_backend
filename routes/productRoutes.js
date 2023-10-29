@@ -1,5 +1,5 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
 const {
   createProduct,
@@ -7,14 +7,15 @@ const {
   getSingleProduct,
   updateProduct,
   deleteProduct,
-} = require("../controllers/productController")
+} = require("../controllers/productController");
+
 const {
   authenticateUser,
   authorizePermissions,
-} = require("../middleware/authentication")
+} = require("../middleware/authentication");
 
-const { getSingleProductReviews } = require("../controllers/reviewController")
-const upload = require('../middleware/multer')
+const { getSingleProductReviews } = require("../controllers/reviewController");
+const upload = require('../middleware/multer');
 
 router
   .route("/")
