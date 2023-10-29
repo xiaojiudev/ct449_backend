@@ -1,8 +1,7 @@
-const { StatusCodes } = require("http-status-codes")
-const path = require("path")
+const { StatusCodes } = require("http-status-codes");
 
-const Product = require("../models/productModel")
-const CustomError = require("../errors")
+const Product = require("../models/productModel");
+const CustomError = require("../errors");
 const { uploadImageToCloudinary, deleteImageFromCloudinary, extractPublicId } = require("../utils");
 
 // CREATE PRODUCT
