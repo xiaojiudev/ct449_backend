@@ -51,7 +51,7 @@
 - `DELETE /api/v1/products/:id` - Delete a product by ID.
 - `GET /api/v1/products/:id/reviews` - Get a single product review.
 
-#### Cart (*Logign required)
+#### Cart (*Login required)
 - `GET /api/v1/carts` - Get the user's cart.
 - `POST /api/v1/carts` - Add product to the user's cart.
 - `DELETE /api/v1/carts` -  Remove a product from user's cart (requires the product ID in the request body).
