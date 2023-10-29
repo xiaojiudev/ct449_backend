@@ -18,17 +18,13 @@
 ## Tech Stack
 
 **Backend:**
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JSON Web Tokens (JWT)
+- Express.js (Node.js)
 
 **Image Upload:** 
 - Cloudinary for uploading images
 
 **Data Storage:** 
-- MongoDB for data storage
+- MongoDB for data storage using `Mongoose Object Data Model`
 
 **User Authentication:**
 - JSON Web Tokens (JWT)
