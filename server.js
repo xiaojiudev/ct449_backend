@@ -6,7 +6,7 @@ const app = express()
 // Rest of the packages
 const morgan = require("morgan") //HTTP request logger middleware
 const cookieParser = require("cookie-parser")
-const fileUpload = require("express-fileupload")
+
 // Require Database
 const connectDB = require("./db/connect")
 // Require Routers
