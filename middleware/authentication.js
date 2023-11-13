@@ -20,8 +20,8 @@ const authorizePermissions = (...roles) => {
 
   
   return (req, res, next) => {
-    console.log(...roles);
-    console.log(req.user.role);
+    console.log("...roles: ", ...roles);
+    console.log("User roles: " + req.user.role);
     if (!roles.includes(req.user.role)) {
       throw new CustomError.UnauthorizedError(
         "Unauthorized to access to this route"
