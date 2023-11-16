@@ -1,6 +1,7 @@
 require("express-async-errors")
 
 const express = require("express")
+const cors = require("cors")
 const app = express()
 
 // Rest of the packages
@@ -19,6 +20,8 @@ const orderRouter = require("./routes/orderRoutes")
 // Require Middleware
 const notFoundMiddleware = require("./middleware/not-found")
 const errorHandlerMiddleware = require("./middleware/error-handler")
+
+app.use(cors())
 
 // Invoke Extra packages
 app.use(morgan("tiny"))
