@@ -21,7 +21,16 @@ const orderRouter = require("./routes/orderRoutes")
 const notFoundMiddleware = require("./middleware/not-found")
 const errorHandlerMiddleware = require("./middleware/error-handler")
 
-app.use(cors())
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000'
+];
+
+const corsOptions = {
+  origin: allowedOrigins,
+  credentials: true,
+};
+app.use(cors(corsOptions))
 
 // Invoke Extra packages
 app.use(morgan("tiny"))
