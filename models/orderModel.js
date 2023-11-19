@@ -8,6 +8,11 @@ const OrderItemSchema = new mongoose.Schema(
             required: true,
         },
 
+        name: {
+            type: String,
+            required: true,
+        },
+
         price: {
             type: Number,
             required: true,
@@ -29,6 +34,14 @@ const OrderSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true,
+        },
+
+        userFullname: {
+            type: String,
+        },
+
+        address: {
+            type: String,
         },
 
         shippingFee: {

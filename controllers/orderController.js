@@ -134,7 +134,15 @@ const createOrder = async (req, res) => {
     const { userId } = req.user;
 
     try {
-        const cart = await ShoppingCart.findOne({ user: userId }).populate("items.product");
+        const cart = await ShoppingCart.findOne({ user: userId }).populate({
+            path: 'items.product',
+            select: 'name price quantityInStock',
+            populate: { path: 'user', select: 'name address' },
+        });
+
+        // console.log(cart.items[0].product.user);
+
+        const { name, address } = cart.items[0].product.user;
 
         if (!cart || cart.items.length === 0) {
             return res.status(StatusCodes.NOT_FOUND).json({ message: "User cart not found or is empty" });
@@ -159,9 +167,13 @@ const createOrder = async (req, res) => {
                 subtotal += itemPrice;
 
                 updatedOrderItems.push({
-                    product: product._id,
+                    product: {
+                        _id: product._id,
+                        name: product.name,
+                    },
                     price: productPriceMap.get(product._id.toString()),
                     quantity: cartItem.quantity,
+                    name: product.name, 
                 });
             }
         }
@@ -177,6 +189,8 @@ const createOrder = async (req, res) => {
 
         const order = await Order.create({
             user: userId,
+            userFullname: name,
+            address: address,
             shippingFee,
             subtotal: parseFloat(subtotal.toFixed(2)),
             total: parseFloat(total.toFixed(2)),
