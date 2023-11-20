@@ -9,6 +9,12 @@ const CartItemSchema = new mongoose.Schema(
             ref: "Product",
             required: true,
         },
+        name: {
+            type: String,
+        },
+        image: {
+            type: String,
+        },
         price: {
             type: Number,
             required: true,
@@ -17,6 +23,9 @@ const CartItemSchema = new mongoose.Schema(
             type: Number,
             required: true,
             min: 1,
+        },
+        subTotal: {
+            type: Number,
         },
     },
     { _id: false, }
@@ -46,7 +55,7 @@ ShoppingCartSchema.methods.addToCart = async function (productId, quantity) {
 
     if (!product) {
         throw new Error("Product not found");
-      }
+    }
 
     const existingItem = this.items.find((item) => item.product.equals(productId));
 

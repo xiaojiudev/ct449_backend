@@ -88,13 +88,37 @@ const getUserCart = async (req, res) => {
     const { userId } = req.user;
 
     try {
-        const cart = await ShoppingCart.findOne({ user: userId });
+        const cart = await ShoppingCart.findOne({ user: userId }).populate({
+            path: 'items.product',
+            model: 'Product',
+            select: 'name image price',
+        });
 
         if (!cart) {
             return res.status(404).json({ message: "Cart not found" });
         }
 
-        res.status(200).json({ message: cart });
+        const mappedItems = cart.items.map((item) => ({
+            product: item.product._id,
+            name: item.product.name,
+            image: item.product.image,
+            price: item.price,
+            quantity: item.quantity,
+            subTotal: item.price * item.quantity,
+        }));
+
+
+        const response = {
+            _id: cart._id,
+            user: cart.user,
+            items: mappedItems,
+            createdAt: cart.createdAt,
+            updatedAt: cart.updatedAt,
+            __v: cart.__v,
+            totalPrice: cart.totalPrice,
+        };
+
+        res.status(200).json({ message: response });
     } catch (error) {
         console.error(error);
         res.status(err.statusCode).json({ message: err.message });
