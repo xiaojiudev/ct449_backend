@@ -30,9 +30,8 @@ const addToCart = async (req, res) => {
                 `Quantity must be greater than zero and less than ${product.quantityInStock}`
             );
         }
-
         // Add the product to cart or update its quantity
-        const userCart = await shoppingCart.addToCart(productId, quantity);
+        const userCart = await shoppingCart.addToCart(productId, quantity ? quantity : 1);
 
         res.status(StatusCodes.CREATED).json(userCart);
     } catch (error) {
@@ -43,7 +42,7 @@ const addToCart = async (req, res) => {
 
 // Remove a product from the shopping cart
 const removeProductFromCart = async (req, res) => {
-    const { productId } = req.body;
+    const { id } = req.params;
     const { userId } = req.user;
 
     try {
@@ -54,7 +53,7 @@ const removeProductFromCart = async (req, res) => {
         }
 
         // Remove the product from the cart
-        await shoppingCart.removeFromCart(productId);
+        await shoppingCart.removeFromCart(id);
 
         res.status(StatusCodes.OK).json({ message: 'Product removed from the cart' });
     } catch (error) {
@@ -91,7 +90,7 @@ const getUserCart = async (req, res) => {
         const cart = await ShoppingCart.findOne({ user: userId }).populate({
             path: 'items.product',
             model: 'Product',
-            select: 'name image price',
+            select: 'name image price quantityInStock',
         });
 
         if (!cart) {
@@ -104,6 +103,7 @@ const getUserCart = async (req, res) => {
             image: item.product.image,
             price: item.price,
             quantity: item.quantity,
+            maxQuantity: item.product.quantityInStock,
             subTotal: item.price * item.quantity,
         }));
 

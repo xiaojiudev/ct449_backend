@@ -21,7 +21,10 @@ const CartItemSchema = new mongoose.Schema(
         },
         quantity: {
             type: Number,
-            required: true,
+            min: 1,
+        },
+        maxQuantity: {
+            type: Number,
             min: 1,
         },
         subTotal: {
@@ -59,8 +62,14 @@ ShoppingCartSchema.methods.addToCart = async function (productId, quantity) {
 
     const existingItem = this.items.find((item) => item.product.equals(productId));
 
+
+
     if (existingItem) {
-        existingItem.quantity += quantity;
+        if (quantity === 1) {
+            existingItem.quantity += quantity;
+        } else {
+            existingItem.quantity = quantity;
+        }
         existingItem.price = product.price;
     } else {
         this.items.push(

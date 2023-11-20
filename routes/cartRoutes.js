@@ -17,6 +17,9 @@ router
     .route("/")
     .get([authenticateUser], getUserCart)
     .post([authenticateUser], addToCart)
+
+router
+    .route("/:id")
     .delete([authenticateUser], removeProductFromCart)
 
 router
