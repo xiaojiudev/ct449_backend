@@ -51,7 +51,7 @@ ShoppingCartSchema.methods.addToCart = async function (productId, quantity) {
     const existingItem = this.items.find((item) => item.product.equals(productId));
 
     if (existingItem) {
-        existingItem.quantity = quantity;
+        existingItem.quantity += quantity;
         existingItem.price = product.price;
     } else {
         this.items.push(

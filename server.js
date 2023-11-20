@@ -23,12 +23,15 @@ const errorHandlerMiddleware = require("./middleware/error-handler")
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'http://localhost:3000'
+  'http://localhost:5174',
+  'http://localhost:3000',
 ];
 
 const corsOptions = {
   origin: allowedOrigins,
   credentials: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: 'Content-Type,Authorization',
 };
 app.use(cors(corsOptions))
 
