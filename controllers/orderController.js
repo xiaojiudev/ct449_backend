@@ -136,7 +136,7 @@ const createOrder = async (req, res) => {
     try {
         const cart = await ShoppingCart.findOne({ user: userId }).populate({
             path: 'items.product',
-            select: 'name price quantityInStock',
+            select: 'name price quantityInStock image',
             populate: { path: 'user', select: 'name address' },
         });
 
@@ -174,6 +174,7 @@ const createOrder = async (req, res) => {
                     price: productPriceMap.get(product._id.toString()),
                     quantity: cartItem.quantity,
                     name: product.name, 
+                    image: product.image,
                 });
             }
         }

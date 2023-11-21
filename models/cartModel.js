@@ -89,12 +89,14 @@ ShoppingCartSchema.methods.addToCart = async function (productId, quantity) {
 // Remove a product from the cart
 ShoppingCartSchema.methods.removeFromCart = function (productId) {
     this.items = this.items.filter((item) => !item.product.equals(productId));
+    this.totalPrice = calculateTotalPrice(this.items);
     return this.save();
 }
 
 // Clear the cart (remove all items)
 ShoppingCartSchema.methods.clearCart = function () {
     this.items = [];
+    this.totalPrice = calculateTotalPrice(this.items);
     return this.save();
 };
 
