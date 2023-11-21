@@ -28,7 +28,7 @@ router
 
 router
     .route("/:id/updateStatus")
-    .patch(authenticateUser, authorizePermissions("admin"), updateOrder)
+    .patch(authenticateUser, /*authorizePermissions("admin"),*/ updateOrder)
 
 
 
