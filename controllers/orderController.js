@@ -133,6 +133,7 @@ const getCurrentUserOrder = async (req, res) => {
 const createOrder = async (req, res) => {
     const { userId } = req.user;
 
+    // console.log(userId);
     try {
         const cart = await ShoppingCart.findOne({ user: userId }).populate({
             path: 'items.product',
@@ -140,9 +141,11 @@ const createOrder = async (req, res) => {
             populate: { path: 'user', select: 'name address' },
         });
 
-        // console.log(cart.items[0].product.user);
+        const user = await User.findOne({_id: userId})
 
-        const { name, address } = cart.items[0].product.user;
+        // console.log("User is: ", user);
+
+        const { name, address } = user
 
         if (!cart || cart.items.length === 0) {
             return res.status(StatusCodes.NOT_FOUND).json({ message: "User cart not found or is empty" });
