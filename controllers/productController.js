@@ -28,8 +28,30 @@ const createProduct = async (req, res) => {
 
 // GET ALL PRODUCTS
 const getAllProducts = async (req, res) => {
-    const product = await Product.find({})
-    res.status(StatusCodes.OK).json({ total_products: product.length, product })
+
+    // const product = await Product.find({})
+    // res.status(StatusCodes.OK).json({ total_products: product.length, product })
+    try {
+        const { search, category } = req.query;
+        let productQuery = {};
+
+        if (search) {
+            const searchPattern = new RegExp(search, 'i');
+            productQuery = { name: searchPattern };
+        }
+
+        if (category) {
+            productQuery.category = category;
+        }
+
+        const products = await Product.find(productQuery);
+
+        res.status(StatusCodes.OK).json({ total_products: products.length, product: products });
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Error fetching products' });
+    }
+
 }
 
 // GET SINGLE PRODUCT

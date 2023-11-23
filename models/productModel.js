@@ -31,7 +31,7 @@ const ProductSchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, "Please provide category"],
-      enum: ["flower", "keychain"],
+      enum: ["flower", "bag"],
     },
     freeShipping: {
       type: Boolean,

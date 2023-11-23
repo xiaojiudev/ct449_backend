@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
   },
   address: {
     type:String,
-    default: ""
+    default: "137/24 Mau Than street, Ninh Kieu district, Can Tho city.",
   },
   phone: {
     type: String,
