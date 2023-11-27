@@ -13,6 +13,9 @@ const statisticWeb = async (req, res) => {
                 $unwind: "$orderItems"
             },
             {
+                $match: { status: "paid" } 
+            },
+            {
                 $group: {
                     _id: "$orderItems.product",
                     totalQuantitySold: { $sum: "$orderItems.quantity" },
@@ -35,17 +38,20 @@ const statisticWeb = async (req, res) => {
                     unitPrice: { $arrayElemAt: ["$productDetails.price", 0] },
                     totalCost: { $round: ["$totalCost", 2] }
                 }
-            }
+            },
         ]);
 
         // Daily Revenue Statistics
         const dailyRevenue = await Order.aggregate([
             {
+                $match: { status: "paid" } 
+            },
+            {
                 $group: {
                     _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
                     totalRevenue: { $sum: "$total" }
                 }
-            }
+            },
         ]);
 
         // Statistics on Number of Orders by Day
