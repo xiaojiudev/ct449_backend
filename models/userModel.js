@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
 
+
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -24,18 +25,58 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["admin","manager", "user"],
+    enum: ["admin", "manager", "user"],
     default: "user",
   },
   address: {
-    type:String,
+    type: String,
     default: "137/24 Mau Than street, Ninh Kieu district, Can Tho city.",
   },
   phone: {
     type: String,
     default: ""
   }
+}, {
+  timestamps: true,
 })
+
+const AddressSchema = new mongoose.Schema(
+  {
+    address_line_2: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    district: {
+      type: String,
+      required: true,
+    },
+    ward: {
+      type: String,
+      required: true,
+    },
+    country: {
+      type: String,
+      required: true,
+    },
+    postal_code: {
+      type: String,
+      required: true,
+    },
+    is_default: {
+      type: Boolean,
+    }
+  },
+  { timestamps: true, }
+);
+
 
 // Hashed the password before saving the user into database
 UserSchema.pre("save", async function () {
@@ -50,6 +91,6 @@ UserSchema.pre("save", async function () {
 UserSchema.methods.comparePassword = async function (candidatePassword) {
   const isMatch = await bcrypt.compare(candidatePassword, this.password)
   return isMatch
-} 
+}
 
 module.exports = mongoose.model("User", UserSchema)
