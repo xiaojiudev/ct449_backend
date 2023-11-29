@@ -1,6 +1,6 @@
 # eCommerce REST API
 
-**Final Project for CT449**
+**Final Project for CT466**
 
 **Author**: Ly Dai Phat - B1705292
 
