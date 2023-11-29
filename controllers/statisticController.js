@@ -13,7 +13,7 @@ const statisticWeb = async (req, res) => {
                 $unwind: "$orderItems"
             },
             {
-                $match: { status: "paid" } 
+                $match: { status: "paid" }
             },
             {
                 $group: {
@@ -44,7 +44,7 @@ const statisticWeb = async (req, res) => {
         // Daily Revenue Statistics
         const dailyRevenue = await Order.aggregate([
             {
-                $match: { status: "paid" } 
+                $match: { status: "paid" }
             },
             {
                 $group: {
@@ -56,6 +56,14 @@ const statisticWeb = async (req, res) => {
 
         // Statistics on Number of Orders by Day
         const ordersByDay = await Order.aggregate([
+            {
+                $match: {
+                    $or: [
+                        { status: "paid" },
+                        { status: "delivered" }
+                    ]
+                }
+            },
             {
                 $group: {
                     _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
