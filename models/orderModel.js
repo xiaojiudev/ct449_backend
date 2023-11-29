@@ -75,7 +75,7 @@ const OrderSchema = new mongoose.Schema(
 
         paymentIntentID: {
             type: String,
-            enum: ["COD"],
+            enum: ["COD", "Visa", "Debit", "Credit"],
             default: "COD"
         },
     },
