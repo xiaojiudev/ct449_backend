@@ -1,10 +1,20 @@
-# eCommerce REST API
+# Final Project for CT466
 
-**Final Project for CT466**
+**Author:** Ly Dai Phat (xiaojiudev)
 
-**Author**: Ly Dai Phat - B1705292
+**Email:** ldphat99@gmail.com
 
-## Features
+**Github:** [xiaojiudev](https://github.com/xiaojiudev)
+
+## Related Repositories
+**Backend:** [Here](https://github.com/xiaojiudev/ct449_backend.git)
+
+**Frontend:** [Here](https://github.com/xiaojiudev/ct449_frontend.git)
+
+**Dashboard:** [Here](https://github.com/xiaojiudev/ct449_dashboard.git)
+
+## 🚀 Project Overview
+### Features
 
 - User registration.
 - User login and logout.
@@ -15,7 +25,7 @@
 - Order creation, update, deletion, and retrieval.
 - Image upload for products using `Cloud service`.
 
-## Tech Stack
+### Tech Stack
 
 **Backend:**
 - Express.js (Node.js)
@@ -29,7 +39,7 @@
 **User Authentication:**
 - JSON Web Tokens (JWT)
 
-## API Reference
+### API Reference
 
 #### User Authentication
 - `POST /api/v1/auth/register` - Register a new user.
